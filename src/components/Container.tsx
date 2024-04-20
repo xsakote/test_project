@@ -9,7 +9,7 @@ const Container: React.FC<ContainerProps> = ({
     return (
         <div
             className="
-                
+
                 2xl:relative
                 bg-fixed
             "

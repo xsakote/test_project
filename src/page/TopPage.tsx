@@ -1,15 +1,19 @@
+import { useEffect, useState, useMemo } from "react";
 import ConnectBtn from "../components/ConnectBtn";
 import FV_1 from "../components/FV_1";
 import FV_2 from "../components/FV_2";
 import Image from "../components/Image";
 import LeftNav from "../components/LeftNav";
+import Logo from "../components/Logo";
 import MintBtn from "../components/MintBtn";
 import MinusBtn from "../components/Minusbtn";
 import Phases from "../components/Phases";
 import PlusBtn from "../components/PulsBtn";
 import TeamWork from "../components/TeamWork";
+import ModalDialog from "../components/Modal";
 
 const TopPage = () => {
+
     const des = [
         {
             "title": "1",
@@ -69,42 +73,104 @@ const TopPage = () => {
         }
     ]
 
+    const [isOpen, setIsOpen] = useState(false)
+    const [isPlus, setIsPlus] = useState(0)
+    const [isModal, setIsModal] = useState(false)
+
+    const handleClick1 = () => {
+            setIsOpen(true);        
+    }
+    const handleCancel_2 = () => {
+        // if (window.screen.width <= 1023) {
+        //     setIsOpen(false)
+        // }
+    };
+    
+    // useEffect(() => {
+    //     if (window.screen.width >= 1024) {
+    //         setIsOpen(true)
+    //         setIsAther(false)
+    //         console.log(isOpen)
+    //     }
+    // }, [window.screen.width])
+
+    // useEffect(() => {
+    //     if (window.screen.width < 1024) {
+    //         setIsAther(false)
+    //         setIsModal(true)
+    //     }
+    // }, [window.screen.width])
+
+    const plus_Btn = () => {
+        setIsPlus(isPlus + 1);
+    }
+
+    const minus_Btn = () => {
+        if (isPlus > 0)
+            setIsPlus(isPlus - 1)
+    }
+    const mint_Btn = () => {
+        alert("?")
+    }
+    const openModal = () => {
+        setIsModal(!isModal);
+    }
+    const handleCancel = () => {
+        setIsModal(false);
+    };
+
     return (
         <>
-            <div className="flex">
-                <div>
-                    <LeftNav />
-                </div>
-                <div className="flex flex-col">
-                    <div className="top-11 right-11 absolute">
-                        <ConnectBtn />
+        <div className="fixed z-50">
+
+            {isModal &&
+                <ModalDialog
+                    open={isModal}
+                    onClose={handleCancel}
+                />
+            }
+        </div>
+            <div className="flex" onClick={handleCancel_2} >
+                 <div className="fixed z-30">
+                        <LeftNav open={isOpen} />
                     </div>
-                    <div className="2xl:flex 2xl:ml-[590px] 2xl:relative 2xl:justify-around
+                <div className="flex flex-col lg:ml-[550px] 2xl:mx-auto" >
+                    <div className="">
+                        <div className="flex sm:items-center sm:justify-around md:items-end lg:justify-end lg:mr-10 mt-10">
+                            <Logo onClick={handleClick1}/>
+                            <div className="flex items-end">
+                                <ConnectBtn onClick={openModal} />
+                            </div>
+                        </div>
+                    </div>
+                    <div  className="2xl:flex 2xl:ml-[590px] 2xl:relative 2xl:justify-around
                                     
                     ">
-                        <div className="flex items-center justify-center lg:mt-16 sm:mt-16">
+                        <div className="flex items-center justify-center lg:mt-10 sm:mt-10">
                             <Image />
                         </div>
-                        <div className="2xl:pt-52 2xl:mr-12">
-                            <div className="flex items-center justify-around gap-12">
+                        <div className="2xl:mt-52 2xl:mr-12 sm:-mt-20 ">
+                            <div className="flex items-center justify-around 2xl:gap-8 sm:gap-0">
                                 <FV_1 />
                                 <FV_2 />
                             </div>
                             <div className="flex flex-col items-center justify-center mx-auto text-white">
                                 <h1 className="text-xl w-[200px] text-center mt-2 mb-5">MINT HERE YOUR MULTIDAO X MUTANT</h1>
-                                <label>2222/5555 OUT</label>
+                                <label>{isPlus}/5555 OUT</label>
                             </div>
                             <div className="flex gap-6 items-center justify-center">
-                                <MinusBtn />
-                                <MintBtn />
-                                <PlusBtn />
+                                <MinusBtn onClick={minus_Btn} />
+                                <MintBtn onClick={mint_Btn} />
+                                <PlusBtn onClick={plus_Btn} />
                             </div>
                         </div>
                     </div>
                     <hr className="my-20"></hr>
-                    <div className="2xl:ml-[570px] 2xl:mr-[60px] xl:mr-[40px] lg:mr-[30px] md:mx-[20px] sm:mx-[20px] flex justify-around flex-col">
+                    <div onClick={()=>setIsOpen(false)} className="2xl:ml-[570px] 2xl:mr-[60px] xl:mr-[40px] lg:mr-[30px] md:mx-[20px] sm:mx-auto flex justify-around flex-col">
                         {des.map((item, idx) => (
-                            <div className={`flex  flex-col  ${idx % 2 === 0 ? "items-start" : "items-end"}`} key={idx}>
+                            <div className={`flex  flex-col  ${idx % 2 === 0 ?
+                                "2xl:items-start xl:items-start lg:items-start md:items-start" : "md:items-end lg:items-end xl:items-end 2xl:items-end"
+                                }`} key={idx}>
                                 <Phases
                                     title={item.title}
                                     label1={item.label1}

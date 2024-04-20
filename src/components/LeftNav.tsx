@@ -1,6 +1,14 @@
-const LeftNav = () => {
+'use client'
+
+interface LeftNavProps {
+    open: boolean;
+}
+
+const LeftNav: React.FC<LeftNavProps> = ({
+    open
+}) => {
     return (
-        <div className="flex-col justify-center items-center w-[520px] h-[800px] mr-[20px] lg:block hidden bg-black text-white 2xl:fixed">
+        <div className={`flex-col z-30 justify-center items-center  2xl:w-[520px] xl:w-[520px] lg:w-[520px] lg:h-full w-[100%] h-[800px] mr-[20px] ${open ? "block" : "lg:block hidden"} bg-black text-white fixed`}>
             <div className="ml-16 flex items-center justify-start mt-[24px]">
                 <img
                     alt="top_man"
@@ -47,7 +55,7 @@ const LeftNav = () => {
             <div className="text-center text-[66px] mt-8">
                 <p className="leading-[70px]">MULTIDAO<br />X MUTANT</p>
             </div>
-            <div className="text-left text-[16px] w-[440px] mx-10 mt-10 leading-5">
+            <div className="flex flex-col items-center justify-center lg:mx-14 md:mx-[200px] sm:mx-[20px]  mx-4  mt-10 leading-5">
                 <p>MultiDao X Mutant is a collection of 5,555 unique and rare NFTs, that are designed to offer their owners a range of benefits and advantages within DaoLabs ecosystem. such as:</p>
                 <div className="flex">
                     <div>&nbsp;1.</div>

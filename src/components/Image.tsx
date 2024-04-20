@@ -12,8 +12,7 @@ const Image = () => {
                     md-h-[400px]
                     lg-w-[300px]
                     lg-h-[450px]
-                    xl:w-[350px]
-                    xl:h-[500px]
+                    
                     2xl:w-[430px]
                     2xl:h-[600px]
                     
